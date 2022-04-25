@@ -1,4 +1,4 @@
-name: npm-publish-gpr
+name: npm-publish
 on:
   push:
     tags:
@@ -24,9 +24,7 @@ jobs:
       - run: npm ci
       - name: Build package
         run: npm run build
-      - name: Add .npmrc entry
-        run: |
-          echo "registry=https://npm.pkg.github.com/" >> ~/gpr.npmrc
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/gpr.npmrc
       - name: Publish package
-        run: npm --userconfig=~/gpr.npmrc publish
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
