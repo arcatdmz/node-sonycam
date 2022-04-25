@@ -1,0 +1,7 @@
+HTTP/1.1 200 OK
+CACHE-CONTROL: max-age=1800
+EXT:
+LOCATION: http://192.168.122.1:64321/dd.xml
+SERVER: UPnP/1.0 MINT-X/1.8.1
+ST: urn:schemas-sony-com:service:ScalarWebAPI:1
+USN: uuid:000000001000-1010-8000-9AF1701181A3::urn:schemas-sony-com:service:ScalarWebAPI:1

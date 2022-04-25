@@ -1,0 +1,27 @@
+[
+  {
+    "av:X_ScalarWebAPI_ServiceType": "guide",
+    "av:X_ScalarWebAPI_ActionList_URL": "http://192.168.122.1:8080/sony",
+    "av:X_ScalarWebAPI_AccessType": ""
+  },
+  {
+    "av:X_ScalarWebAPI_ServiceType": "accessControl",
+    "av:X_ScalarWebAPI_ActionList_URL": "http://192.168.122.1:8080/sony",
+    "av:X_ScalarWebAPI_AccessType": ""
+  },
+  {
+    "av:X_ScalarWebAPI_ServiceType": "camera",
+    "av:X_ScalarWebAPI_ActionList_URL": "http://192.168.122.1:8080/sony",
+    "av:X_ScalarWebAPI_AccessType": ""
+  },
+  {
+    "av:X_ScalarWebAPI_ServiceType": "system",
+    "av:X_ScalarWebAPI_ActionList_URL": "http://192.168.122.1:8080/sony",
+    "av:X_ScalarWebAPI_AccessType": ""
+  },
+  {
+    "av:X_ScalarWebAPI_ServiceType": "avContent",
+    "av:X_ScalarWebAPI_ActionList_URL": "http://192.168.122.1:8080/sony",
+    "av:X_ScalarWebAPI_AccessType": ""
+  }
+]

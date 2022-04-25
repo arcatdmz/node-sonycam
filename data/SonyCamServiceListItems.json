@@ -1,0 +1,16 @@
+[
+  {
+    "serviceType": "urn:schemas-sony-com:service:ScalarWebAPI:1",
+    "serviceId": "urn:schemas-sony-com:serviceId:ScalarWebAPI",
+    "SCPDURL": "",
+    "controlURL": "",
+    "eventSubURL": ""
+  },
+  {
+    "serviceType": "urn:schemas-sony-com:service:DigitalImaging:1",
+    "serviceId": "urn:schemas-sony-com:serviceId:DigitalImaging",
+    "SCPDURL": "/DigitalImagingDesc.xml",
+    "controlURL": "/upnp/control/DigitalImaging",
+    "eventSubURL": ""
+  }
+]
