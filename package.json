@@ -1,5 +1,5 @@
 {
-  "name": "sonycam",
+  "name": "node-sonycam",
   "version": "0.0.0",
   "description": "Node.js library to fetch images from Sony DSLRs (e.g., ILCE-QX1) written in TypeScript",
   "type": "module",
@@ -12,7 +12,7 @@
     "clean:docs": "del-cli docs/out",
     "clean:lib": "del-cli dist",
     "prettify": "prettier --write ./**/*.{ts,tsx}",
-    "typedoc": "typedoc --out ./docs/out/api ./lib/index.ts"
+    "typedoc": "typedoc --out ./docs ./lib/index.ts"
   },
   "repository": {
     "type": "git",
