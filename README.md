@@ -4,7 +4,7 @@
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Farcatdmz%2Fnode-sonycam.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Farcatdmz%2Fnode-sonycam?ref=badge_shield)
 [![npm version](https://img.shields.io/npm/v/node-sonycam)](https://www.npmjs.com/package/node-sonycam)
 
-**node-sonycam** is a Node.js library to fetch images from Sony DSLRs (e.g., ILCE-QX1) written in TypeScript
+**node-sonycam** is a Node.js library to fetch images from Sony DSLRs (e.g., ILCE-QX1) written in TypeScript.
 
 **node-sonycam** はソニー製デジタル一眼から画像を取得するための Node.js 用ライブラリで、 TypeScript で記述されています。
 
@@ -14,12 +14,12 @@
 ### Usage / 使い方
 
 ```javascript
-const location = await discoverSonyCam();
+const location = await discoverSonyDevice();
 console.log("Discovered service spec location:", location);
 
 const spec = await fetchSonyCamSpec(location);
-const serviceUrl = await findSonyCamUrl(spec);
-console.log("Found Sony camera service url:", location);
+const serviceUrl = findSonyCamUrl(spec);
+console.log("Found Sony camera service url:", serviceUrl);
 
 const sonyCam = new SonyCam(serviceUrl);
 await sonyCam.connect();
