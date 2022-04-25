@@ -1,0 +1,33 @@
+{
+  "name": "sonycam",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arcatdmz/node-sonycam.git"
+  },
+  "keywords": [
+    "nodejs",
+    "sony-alpha-cameras"
+  ],
+  "author": "Jun Kato <i@junkato.jp>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/arcatdmz/node-sonycam/issues"
+  },
+  "homepage": "https://github.com/arcatdmz/node-sonycam#readme",
+  "dependencies": {
+    "fast-xml-parser": "^4.0.7",
+    "node-fetch": "^3.2.3",
+    "semver": "^7.3.7"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.26",
+    "@types/semver": "^7.3.9",
+    "typescript": "^4.6.3"
+  }
+}
