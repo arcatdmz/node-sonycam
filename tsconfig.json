@@ -1,11 +1,11 @@
 {
-    "compilerOptions": {
-      "esModuleInterop": true,
-      "module": "es2022",
-      "moduleResolution": "node",
-      "outDir": "dist",
-      "target": "es2017"
-    },
-    "include": ["lib/**/*.ts"]
-  }
-  
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "module": "es2022",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "target": "es2017"
+  },
+  "include": ["lib/**/*.ts"]
+}
