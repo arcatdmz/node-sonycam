@@ -1,0 +1,14 @@
+# Visual Studio Code configurations
+.vscode/
+
+# source code
+lib/
+.github/
+.editorconfig
+tsconfig.json
+
+# website
+docs/
+
+# example data
+data/
