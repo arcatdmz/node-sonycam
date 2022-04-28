@@ -4,7 +4,7 @@
   "description": "Node.js library to fetch images from Sony DSLRs (e.g., ILCE-QX1) written in TypeScript",
   "type": "module",
   "types": "dist/index.d.ts",
-  "main": "dist/index.js",
+  "main": "dist/index.mjs",
   "module": "dist/index.mjs",
   "scripts": {
     "build": "rollup -c",
