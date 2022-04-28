@@ -10,7 +10,10 @@ const SONY_API = "schemas-sony-com:service:ScalarWebAPI:1",
  * @returns UPnP Device Description location (url)
  * @see {@link https://developer.sony.com/develop/audio-control-api/hardware-overview/discovery-process}
  */
-export async function discoverSonyDevice(): Promise<string> {
+export async function discoverSonyDevice(timeout?: number): Promise<string> {
+  if (!timeout || timeout < 0) {
+    timeout = 2000;
+  }
   return new Promise<string>(function (resolve, reject) {
     try {
       const mSearchMessage = Buffer.from(
@@ -22,13 +25,22 @@ export async function discoverSonyDevice(): Promise<string> {
           "\r\n"
       );
       const client = dgram.createSocket("udp4");
+      let resolved = false;
       client.on("message", (message) => {
+        if (resolved) {
+          return;
+        }
         const location = /LOCATION: (.*)/.exec(message.toString())[1];
         client.close();
+        resolved = true;
         resolve(location);
       });
       client.on("error", (err) => {
+        if (resolved) {
+          return;
+        }
         client.close();
+        resolved = true;
         reject(err);
       });
       client.send(
@@ -38,6 +50,14 @@ export async function discoverSonyDevice(): Promise<string> {
         SSDP_PORT,
         SSDP_ADDRESS
       );
+      setTimeout(() => {
+        if (resolved) {
+          return;
+        }
+        client.removeAllListeners();
+        resolved = true;
+        reject(new Error("Service discovery timeout"));
+      }, timeout);
     } catch (error) {
       reject(error);
     }
