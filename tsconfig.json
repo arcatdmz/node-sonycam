@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "declarationDir": ".",
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
     "outDir": "dist",
     "target": "es2017"
   },
-  "include": ["lib/**/*.ts"]
+  "include": ["lib/**/*.ts"],
+  "exclude": ["dist"]
 }
