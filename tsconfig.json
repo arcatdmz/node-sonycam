@@ -2,7 +2,7 @@
   "compilerOptions": {
     "declaration": true,
     "esModuleInterop": true,
-    "module": "es2022",
+    "module": "esnext",
     "moduleResolution": "node",
     "outDir": "dist",
     "target": "es2017"
