@@ -7,7 +7,7 @@ const SONY_API = "schemas-sony-com:service:ScalarWebAPI:1",
 /**
  * Discover Sony devices supporting SSDP.
  *
- * @returns UPnP Device Description location (url)
+ * @returns UPnP Device Description location (url; e.g., http://192.168.122.1:64321/dd.xml)
  * @see {@link https://developer.sony.com/develop/audio-control-api/hardware-overview/discovery-process}
  */
 export async function discoverSonyDevice(timeout?: number): Promise<string> {
