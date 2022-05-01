@@ -4,4 +4,5 @@ export type RpcParameter =
     }
   | string
   | string[]
-  | number;
+  | number
+  | boolean;

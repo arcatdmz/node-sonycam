@@ -37,12 +37,17 @@ export class SonyCam
   availableApiList: string[];
   liveviewUrl: string;
   private _fetchingLiveview: boolean;
+  status: any;
+  private _fetchingStatus: boolean;
 
   get liveviewing(): boolean {
     return !!this.liveviewUrl;
   }
   get fetchingLiveview(): boolean {
     return this._fetchingLiveview;
+  }
+  get fetchingStatus(): boolean {
+    return this._fetchingStatus;
   }
 
   constructor(
@@ -100,7 +105,9 @@ export class SonyCam
       return result;
     } catch (e) {
       if (e instanceof AbortError) {
-        throw new Error(`Request timed out for ${method}`);
+        if (method !== "getEvent") {
+          throw new Error(`Request timed out for ${method}`);
+        }
       }
       throw e;
     } finally {
@@ -135,6 +142,7 @@ export class SonyCam
 
   async disconnect() {
     await this.stopLiveview();
+    await this.stopFetchingStatus();
     if (
       Array.isArray(this.availableApiList) &&
       this.availableApiList.includes("stopRecMode")
@@ -253,5 +261,46 @@ export class SonyCam
     res.body.on("close", () => {
       this._fetchingLiveview = false;
     });
+  }
+
+  async startFetchingStatus(): Promise<any> {
+    if (!this._fetchingStatus) {
+      this._fetchingStatus = true;
+      this.status = await this.call("getEvent", [false]);
+      this._fetchingStatus && this.emit("status", this.status);
+      this.continuouslyFetchStatus();
+    }
+    return this.status;
+  }
+
+  private async continuouslyFetchStatus() {
+    while (this._fetchingStatus) {
+      try {
+        const result = await this.call("getEvent", [true]);
+        if (result.length > this.status.length) {
+          this.status.length = result.length;
+        }
+        const changed: number[] = [];
+        for (let i = 0; i < result.length; i++) {
+          const item = result[i];
+          if (!item || (Array.isArray(item) && item.length <= 0)) {
+            continue;
+          }
+          this.status[i] = item;
+          changed.push(i);
+        }
+        this._fetchingStatus && this.emit("status", this.status);
+        this.emit("statusChange", changed);
+      } catch (e) {
+        if (e instanceof AbortError) {
+          continue;
+        }
+        throw e;
+      }
+    }
+  }
+
+  stopFetchingStatus() {
+    this._fetchingStatus = false;
   }
 }
