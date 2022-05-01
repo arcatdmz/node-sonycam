@@ -36,9 +36,13 @@ export class SonyCam
   version: string;
   availableApiList: string[];
   liveviewUrl: string;
+  private _fetchingLiveview: boolean;
 
   get liveviewing(): boolean {
     return !!this.liveviewUrl;
+  }
+  get fetchingLiveview(): boolean {
+    return this._fetchingLiveview;
   }
 
   constructor(
@@ -187,12 +191,16 @@ export class SonyCam
     if (!this.liveviewing) {
       throw new Error("Call startLiveview before fetching images");
     }
+    if (this._fetchingLiveview) {
+      throw new Error("Already fetching liveview images");
+    }
     const res = await fetch(this.liveviewUrl);
     if (!res.ok || res.status !== 200) {
       throw new Error(
         "Response error (http code " + res.status + " for fetching images)"
       );
     }
+    this._fetchingLiveview = true;
     let headers: SonyCamLiveviewHeaders,
       payloadDataSize = 0,
       bufferIndex = 0,
@@ -240,6 +248,9 @@ export class SonyCam
           payloadDataSize = 0;
         }
       }
+    });
+    res.body.on("close", () => {
+      this._fetchingLiveview = false;
     });
   }
 }
