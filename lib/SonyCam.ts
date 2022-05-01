@@ -194,8 +194,6 @@ export class SonyCam
       );
     }
     let headers: SonyCamLiveviewHeaders,
-      lastTimestamp = -1,
-      timestamps: number[] = [],
       payloadDataSize = 0,
       bufferIndex = 0,
       buffer = Buffer.alloc(0),
@@ -208,27 +206,6 @@ export class SonyCam
         buffer = Buffer.concat([buffer, chunk]);
         if (buffer.byteLength >= SonyCamLiveviewHeaderSize) {
           headers = parseSonyCamLiveviewDataHeaders(buffer);
-
-          // calculate framerate
-          if (lastTimestamp >= 0) {
-            const elapsed = headers.commonHeader.timestamp - lastTimestamp;
-            timestamps.push(elapsed);
-            if (timestamps.length > 51) {
-              timestamps.shift();
-            }
-
-            // calc median
-            timestamps.sort();
-            const interval = timestamps[Math.floor(timestamps.length / 2)];
-
-            // // calc average
-            // const interval =
-            //   timestamps.reduce((p, c) => p + c, 0) /
-            //   Math.min(timestamps.length, 51);
-
-            this.emit("interval", interval);
-          }
-          lastTimestamp = headers.commonHeader.timestamp;
 
           // allocate buffer of payload data size for imageBuffer
           payloadDataSize = headers.payloadHeader.payloadDataSize;
