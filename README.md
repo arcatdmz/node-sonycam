@@ -36,6 +36,13 @@ await sonyCam.stopLiveview();
 await sonyCam.disconnect();
 ```
 
+More examples can be found in the following repositories.
+
+実例は以下のリポジトリで見つけられます。
+
+- https://github.com/arcatdmz/node-sonycam-example-socketio
+- https://github.com/arcatdmz/node-sonycam-example-ffmpeg
+
 ### API Documentation / API ドキュメント
 
 All of the exported classes and interfaces are listed in [TypeDoc](https://arcatdmz.github.io/node-sonycam/).
