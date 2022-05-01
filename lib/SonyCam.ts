@@ -134,6 +134,7 @@ export class SonyCam
   }
 
   async disconnect() {
+    await this.stopLiveview();
     if (
       Array.isArray(this.availableApiList) &&
       this.availableApiList.includes("stopRecMode")
