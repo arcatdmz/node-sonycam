@@ -58,11 +58,12 @@ export class SonyCam
 
   async call(
     method: string,
-    params: RpcParameter[] = null
+    params: RpcParameter[] = null,
+    version: string = "1.0"
   ): Promise<RpcResponse> {
     const rpcReq: RpcRequest = {
       id: 1,
-      version: "1.0",
+      version,
       method,
       params: params || [],
     };
@@ -87,7 +88,7 @@ export class SonyCam
         );
       }
       const parsedData = (await res.json()) as any,
-        result = parsedData ? parsedData.result : null,
+        result = parsedData ? parsedData.result || parsedData.results : null,
         error = parsedData ? parsedData.error : null;
       if (error) {
         // retry getEvent function call
@@ -142,7 +143,7 @@ export class SonyCam
 
   async disconnect() {
     await this.stopLiveview();
-    await this.stopFetchingStatus();
+    this.stopFetchingStatus();
     if (
       Array.isArray(this.availableApiList) &&
       this.availableApiList.includes("stopRecMode")
@@ -263,20 +264,20 @@ export class SonyCam
     });
   }
 
-  async startFetchingStatus(): Promise<any> {
+  async startFetchingStatus(version: string = "1.0"): Promise<any> {
     if (!this._fetchingStatus) {
       this._fetchingStatus = true;
-      this.status = await this.call("getEvent", [false]);
+      this.status = await this.call("getEvent", [false], version);
       this._fetchingStatus && this.emit("status", this.status);
-      this.continuouslyFetchStatus();
+      this.continuouslyFetchStatus(version);
     }
     return this.status;
   }
 
-  private async continuouslyFetchStatus() {
+  private async continuouslyFetchStatus(version: string) {
     while (this._fetchingStatus) {
       try {
-        const result = await this.call("getEvent", [true]);
+        const result = await this.call("getEvent", [true], version);
         if (result.length > this.status.length) {
           this.status.length = result.length;
         }
