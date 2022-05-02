@@ -290,8 +290,10 @@ export class SonyCam
           this.status[i] = item;
           changed.push(i);
         }
-        this._fetchingStatus && this.emit("status", this.status);
-        this.emit("statusChange", changed);
+        if (this._fetchingStatus) {
+          this.emit("status", this.status);
+          this.emit("statusChange", changed);
+        }
       } catch (e) {
         if (e instanceof AbortError) {
           continue;
